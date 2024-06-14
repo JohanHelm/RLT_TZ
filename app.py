@@ -34,7 +34,10 @@ class DataAgregator:
             self.result["labels"].append(label.isoformat())
 
     async def execute(self):
-        self.create_input_data_obj()
-        self.create_labels_range()
-        await self.agregate()
-        return self.result
+        try:
+            self.create_input_data_obj()
+            self.create_labels_range()
+            await self.agregate()
+            return self.result
+        except Exception as err:
+            return "Ошибка во входных данных"
