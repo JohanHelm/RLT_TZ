@@ -20,7 +20,7 @@ async def process_start_command(message: Message):
 @dp.message()
 async def get_input_text(message: Message):
     data_agregator = DataAgregator(message.text)
-    result_text = str(await data_agregator.execute())
+    result_text = await data_agregator.execute()
     await message.answer(text=result_text)
 
 

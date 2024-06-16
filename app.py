@@ -38,6 +38,6 @@ class DataAgregator:
             self.create_input_data_obj()
             self.create_labels_range()
             await self.agregate()
-            return self.result
+            return json.dumps(self.result)
         except Exception as err:
             return "Ошибка во входных данных"
