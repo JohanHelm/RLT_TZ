@@ -24,13 +24,16 @@ class DataAgregator:
 
     def create_labels_range(self):
         process_date = self.input_data.dt_from
-        while process_date < self.input_data.dt_upto:
+        while process_date <= self.input_data.dt_upto:
             self.labels.append(process_date)
             process_date = date_plus_one(process_date, self.input_data.group_type)
 
     async def agregate(self):
         for label in self.labels:
-            self.result["dataset"].append(await self.async_mongo_db.salary_for_range(label, self.input_data.group_type))
+            if label == self.input_data.dt_upto:
+                self.result["dataset"].append(0)
+            else:
+                self.result["dataset"].append(await self.async_mongo_db.salary_for_range(label, self.input_data.group_type))
             self.result["labels"].append(label.isoformat())
 
     async def execute(self):
